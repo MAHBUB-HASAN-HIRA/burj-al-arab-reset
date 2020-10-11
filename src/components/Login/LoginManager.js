@@ -19,6 +19,7 @@ export const signInWithGoogle = () => {
             isSignIn: true,
             success: true,
         }
+        handleVerifyToken();
         return userSignedIn;
       }).catch(error => console.log(error));
 }
@@ -39,4 +40,13 @@ export const signOut = () => {
       .catch( error =>{
         console.log(error);
       });
+}
+export  const handleVerifyToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+            .then(idToken => {
+               sessionStorage.setItem("idToken" , idToken);
+               console.log(idToken);
+            }).catch(function(error) {
+                // Handle error
+            });
 }
